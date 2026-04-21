@@ -17,6 +17,12 @@
 #include <string.h>
 #include <assert.h>
 #include "../compat.h"
+#ifndef _WIN32
+#include <fcntl.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#endif
 
 #define OP_CONV 1
 #define OP_BN 2
@@ -63,6 +69,7 @@ static const uint8_t* read_u32(const uint8_t* p, uint32_t* out) { memcpy(out, p,
 
 
 int ffw2_load(const char* path, FFW2* out) {
+#ifdef _WIN32
     HANDLE h = CreateFileA(path, GENERIC_READ, FILE_SHARE_READ, NULL,
                            OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
     if (h == INVALID_HANDLE_VALUE) { fprintf(stderr, "open fail\n"); return -1; }
@@ -71,6 +78,18 @@ int ffw2_load(const char* path, FFW2* out) {
     void* data = MapViewOfFile(m, FILE_MAP_READ, 0, 0, 0);
     if (!data) { fprintf(stderr, "mmap fail\n"); return -2; }
     out->data = data; out->size = (size_t)sz.QuadPart;
+#else
+    /* POSIX mmap fallback for Linux / macOS. */
+    int fd = open(path, O_RDONLY);
+    if (fd < 0) { fprintf(stderr, "open fail\n"); return -1; }
+    struct stat st;
+    if (fstat(fd, &st) < 0) { close(fd); fprintf(stderr, "stat fail\n"); return -1; }
+    void* data = mmap(NULL, (size_t)st.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+    if (data == MAP_FAILED) { close(fd); fprintf(stderr, "mmap fail\n"); return -2; }
+    out->data = data; out->size = (size_t)st.st_size;
+    /* fd can be closed after mmap; the mapping keeps a reference. */
+    close(fd);
+#endif
 
     const uint8_t* p = (const uint8_t*)data;
     int version;
