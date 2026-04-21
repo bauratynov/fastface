@@ -35,7 +35,19 @@ jobs:
           go-version: '1.22'
 
       - name: Build (compile only; runtime needs AVX-VNNI CPU)
-        run: make CC=gcc-13 AR=ar CFLAGS_ARCH="-march=x86-64-v3 -mavxvnni" all
+        run: |
+          gcc-13 --version
+          gcc-13 -march=x86-64-v3 -mavxvnni -E -x c /dev/null 2>&1 | tail -5 || true
+          set -o pipefail
+          make CC=gcc-13 AR=ar CFLAGS_ARCH="-march=x86-64-v3 -mavxvnni" all 2>&1 | tee /tmp/build.log
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: /tmp/build.log
+          if-no-files-found: ignore
 
       - name: Build libfastface consumer test (compile only)
         run: |
