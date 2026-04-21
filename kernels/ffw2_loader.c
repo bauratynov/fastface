@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
-#include <windows.h>
+#include "../compat.h"
 
 #define OP_CONV 1
 #define OP_BN 2

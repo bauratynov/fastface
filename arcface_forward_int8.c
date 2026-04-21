@@ -10,7 +10,7 @@
 #include <string.h>
 #include <math.h>
 #include <omp.h>
-#include <windows.h>
+#include "compat.h"
 #include <immintrin.h>
 #include <io.h>
 #include <fcntl.h>

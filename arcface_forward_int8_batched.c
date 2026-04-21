@@ -9,10 +9,8 @@
 #include <string.h>
 #include <math.h>
 #include <omp.h>
-#include <windows.h>
+#include "compat.h"
 #include <immintrin.h>
-#include <io.h>
-#include <fcntl.h>
 
 void compute_col_sums(const int8_t* B, int K, int N, int32_t* col_sums);
 void pack_B_vnni(const int8_t* B, int K, int N, int8_t* Bp);
