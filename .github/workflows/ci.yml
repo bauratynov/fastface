@@ -36,18 +36,17 @@ jobs:
 
       - name: Build (compile only; runtime needs AVX-VNNI CPU)
         run: |
-          gcc-13 --version
-          gcc-13 -march=x86-64-v3 -mavxvnni -E -x c /dev/null 2>&1 | tail -5 || true
+          gcc-13 --version | head -1 | xargs -I{} echo "::notice::GCC: {}"
           set -o pipefail
-          make CC=gcc-13 AR=ar CFLAGS_ARCH="-march=x86-64-v3 -mavxvnni" all 2>&1 | tee /tmp/build.log
-
-      - name: Upload build log
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-log
-          path: /tmp/build.log
-          if-no-files-found: ignore
+          if ! make CC=gcc-13 AR=ar CFLAGS_ARCH="-march=x86-64-v3 -mavxvnni" all > /tmp/build.log 2>&1; then
+            # Surface first 60 lines of output as annotations so they're visible in jobs API.
+            head -60 /tmp/build.log | while IFS= read -r line; do
+              # Escape % for GH annotation syntax.
+              echo "::error::$(printf '%s' "$line" | tr -d '\r' | cut -c1-400)"
+            done
+            exit 1
+          fi
+          echo "::notice::Build succeeded, $(wc -l < /tmp/build.log) log lines."
 
       - name: Build libfastface consumer test (compile only)
         run: |
