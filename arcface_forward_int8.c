@@ -11,6 +11,7 @@
 #include <math.h>
 #include <omp.h>
 #include "compat.h"
+#include <time.h>
 #include <immintrin.h>
 
 void compute_col_sums(const int8_t* B, int K, int N, int32_t* col_sums);
@@ -88,8 +89,14 @@ int ffw2_load(const char* path, FFW2* out);
 typedef struct { int C, H, W; } Shape;
 
 static double now_s(void) {
+#ifdef _WIN32
     LARGE_INTEGER q, f; QueryPerformanceCounter(&q); QueryPerformanceFrequency(&f);
     return (double)q.QuadPart / (double)f.QuadPart;
+#else
+    struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    return (double)ts.tv_sec + (double)ts.tv_nsec * 1e-9;
+#endif
 }
 
 #ifdef PROFILE_OPS
