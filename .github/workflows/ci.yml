@@ -54,7 +54,7 @@ jobs:
       - name: Build libfastface consumer test (compile only)
         run: |
           gcc-13 -O2 -march=x86-64-v3 -mavxvnni -fopenmp -I. \
-                 test_libfastface.c libfastface.a -o test_libfastface
+                 test_libfastface.c libfastface.a -o test_libfastface -lm
 
       - name: Go build (compile only)
         working-directory: go/fastface

@@ -31,6 +31,9 @@ AR          := ar
 #   ARM NEON port (future):  override with "-march=armv8.2-a+dotprod" etc.
 CFLAGS_ARCH ?= -march=native -mavx2 -mfma -mavxvnni
 CFLAGS       = -O3 $(CFLAGS_ARCH) -fopenmp $(CFLAGS_EXTRA)
+# Link libraries: -lm is needed on Linux/POSIX for lrintf/sqrtf/etc.
+# MinGW on Windows links libm implicitly so this is a no-op there.
+LDLIBS       = -lm
 DEFS         = -DFFW2_NOMAIN
 PYTHON      ?= python
 
@@ -55,10 +58,10 @@ exes: $(BIN_MAIN) $(BIN_BATCHED)
 lib: libfastface.a
 
 $(BIN_MAIN): arcface_forward_int8.c $(KERNEL_SRCS)
-	$(CC) $(CFLAGS) $(DEFS) $^ -o $@
+	$(CC) $(CFLAGS) $(DEFS) $^ -o $@ $(LDLIBS)
 
 $(BIN_BATCHED): arcface_forward_int8_batched.c $(KERNEL_SRCS)
-	$(CC) $(CFLAGS) $(DEFS) $^ -o $@
+	$(CC) $(CFLAGS) $(DEFS) $^ -o $@ $(LDLIBS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(DEFS) -c $< -o $@
@@ -67,7 +70,7 @@ libfastface.a: libfastface.o $(KERNEL_OBJS)
 	$(AR) rcs $@ $^
 
 $(BIN_TESTLIB): test_libfastface.c libfastface.a fastface.h
-	$(CC) -O2 -fopenmp -I. test_libfastface.c libfastface.a -o $@
+	$(CC) -O2 -fopenmp -I. test_libfastface.c libfastface.a -o $@ $(LDLIBS)
 
 test: $(BIN_MAIN) tests/golden_input.bin tests/golden_int8_emb.bin
 	$(PYTHON) tests/run_regression.py
