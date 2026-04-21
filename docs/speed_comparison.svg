@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" font-family="system-ui, -apple-system, sans-serif">
+  <title>FastFace INT8 vs ORT+InsightFace latency</title>
+
+  <rect width="640" height="360" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="320" y="26" text-anchor="middle" font-size="15" font-weight="600" fill="#222">
+    FastFace INT8 vs ORT+InsightFace on Intel i7-13700
+  </text>
+  <text x="320" y="42" text-anchor="middle" font-size="11" fill="#555">
+    ms per face (lower is better)
+  </text>
+
+  <!-- Y axis, 0..40 ms mapped to y=290..60 (height=230) -->
+  <line x1="70" y1="60" x2="70" y2="290" stroke="#999"/>
+  <text x="62" y="63"  text-anchor="end" font-size="10" fill="#555">40</text>
+  <text x="62" y="121" text-anchor="end" font-size="10" fill="#555">30</text>
+  <text x="62" y="178" text-anchor="end" font-size="10" fill="#555">20</text>
+  <text x="62" y="236" text-anchor="end" font-size="10" fill="#555">10</text>
+  <text x="62" y="293" text-anchor="end" font-size="10" fill="#555">0</text>
+
+  <line x1="70" y1="121" x2="620" y2="121" stroke="#eee"/>
+  <line x1="70" y1="178" x2="620" y2="178" stroke="#eee"/>
+  <line x1="70" y1="236" x2="620" y2="236" stroke="#eee"/>
+
+  <!-- Scenario 1: b=1 burst. ORT=31.46 (y=290 - 31.46*5.75=109), FastFace=13.27 (y=290-13.27*5.75=214) -->
+  <rect x="110" y="109" width="50" height="181" fill="#6c757d"/>
+  <text x="135" y="104" text-anchor="middle" font-size="11" fill="#6c757d">31.46</text>
+  <rect x="170" y="214" width="50" height="76" fill="#28a745"/>
+  <text x="195" y="209" text-anchor="middle" font-size="11" font-weight="600" fill="#28a745">13.27</text>
+  <text x="165" y="308" text-anchor="middle" font-size="11" fill="#222">b=1 burst</text>
+
+  <!-- Scenario 2: b=1 sustained 4 threads infinite. ORT=38.0, FastFace=20.5 -->
+  <rect x="270" y="72"  width="50" height="218" fill="#6c757d"/>
+  <text x="295" y="67" text-anchor="middle" font-size="11" fill="#6c757d">38.0</text>
+  <rect x="330" y="172" width="50" height="118" fill="#28a745"/>
+  <text x="355" y="167" text-anchor="middle" font-size="11" font-weight="600" fill="#28a745">20.5</text>
+  <text x="325" y="308" text-anchor="middle" font-size="11" fill="#222">b=1 sustained</text>
+  <text x="325" y="322" text-anchor="middle" font-size="9" fill="#555">(4 thread, inf)</text>
+
+  <!-- Scenario 3: B=8 batched. ORT=32 (1 face/32ms-equiv), FastFace=11.09 -->
+  <rect x="430" y="106" width="50" height="184" fill="#6c757d"/>
+  <text x="455" y="101" text-anchor="middle" font-size="11" fill="#6c757d">32.0</text>
+  <rect x="490" y="226" width="50" height="64" fill="#28a745"/>
+  <text x="515" y="221" text-anchor="middle" font-size="11" font-weight="600" fill="#28a745">11.09</text>
+  <text x="485" y="308" text-anchor="middle" font-size="11" fill="#222">B=8 batched</text>
+
+  <!-- Legend -->
+  <rect x="180" y="340" width="12" height="12" fill="#6c757d"/>
+  <text x="196" y="351" font-size="11" fill="#222">ORT + InsightFace (reference)</text>
+  <rect x="390" y="340" width="12" height="12" fill="#28a745"/>
+  <text x="406" y="351" font-size="11" fill="#222">FastFace INT8</text>
+</svg>

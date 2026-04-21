@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="360" viewBox="0 0 880 360" font-family="system-ui, -apple-system, sans-serif">
+  <title>FastFace operating-point heatmap (latency vs throughput vs RSS)</title>
+  <rect width="880" height="360" fill="#ffffff"/>
+
+  <text x="440" y="26" text-anchor="middle" font-size="15" font-weight="600" fill="#222">
+    Operating-point matrix: pick by use case
+  </text>
+  <text x="440" y="42" text-anchor="middle" font-size="11" fill="#555">
+    Intel i7-13700, LFW 10-fold = 99.65% for every cell
+  </text>
+
+  <!-- Column headers (label col 40..330, then 3 metric cols centered 420/590/760) -->
+  <text x="60"  y="80" font-size="12" font-weight="600" fill="#222">mode</text>
+  <text x="420" y="80" text-anchor="middle" font-size="12" font-weight="600" fill="#222">median latency</text>
+  <text x="590" y="80" text-anchor="middle" font-size="12" font-weight="600" fill="#222">sustained throughput</text>
+  <text x="760" y="80" text-anchor="middle" font-size="12" font-weight="600" fill="#222">peak RSS</text>
+
+  <!-- Row 1: b=1 burst, 8 threads -->
+  <rect x="40"  y="92" width="800" height="40" fill="#f8f9fa" stroke="#dee2e6"/>
+  <text x="60"  y="112" font-size="12" fill="#222" font-weight="500">b=1 burst, 8 threads</text>
+  <text x="60"  y="126" font-size="9"  fill="#6c757d">kiosk / interactive -- single-face demos</text>
+  <text x="420" y="117" text-anchor="middle" font-size="13" fill="#16a34a" font-weight="600">13.27 ms</text>
+  <text x="590" y="117" text-anchor="middle" font-size="13" fill="#a16207">75 face/s (degrades)</text>
+  <text x="760" y="117" text-anchor="middle" font-size="13" fill="#16a34a" font-weight="600">90 MB</text>
+
+  <!-- Row 2: b=1 sustained, 4 threads -->
+  <rect x="40"  y="136" width="800" height="40" fill="#ecfdf5" stroke="#a7f3d0"/>
+  <text x="60"  y="156" font-size="12" fill="#222" font-weight="500">b=1 sustained, 4 threads pinned</text>
+  <text x="60"  y="170" font-size="9"  fill="#6c757d">24/7 camera -- best latency stability</text>
+  <text x="420" y="161" text-anchor="middle" font-size="13" fill="#a16207">20.5 ms</text>
+  <text x="590" y="161" text-anchor="middle" font-size="13" fill="#16a34a" font-weight="600">48 face/s infinite</text>
+  <text x="760" y="161" text-anchor="middle" font-size="13" fill="#16a34a" font-weight="600">90 MB</text>
+
+  <!-- Row 3: B=8 batched, 8 threads -->
+  <rect x="40"  y="180" width="800" height="40" fill="#f8f9fa" stroke="#dee2e6"/>
+  <text x="60"  y="200" font-size="12" fill="#222" font-weight="500">B=8 batched, 8 threads</text>
+  <text x="60"  y="214" font-size="9"  fill="#6c757d">multi-face frame -- 3-8 faces per detect pass</text>
+  <text x="420" y="205" text-anchor="middle" font-size="13" fill="#16a34a" font-weight="600">11.09 ms/face</text>
+  <text x="590" y="205" text-anchor="middle" font-size="13" fill="#a16207">90 face/s (degrades)</text>
+  <text x="760" y="205" text-anchor="middle" font-size="13" fill="#a16207">190 MB</text>
+
+  <!-- Row 4: B=8 sustained, 4 threads (RECOMMENDED) -->
+  <rect x="40"  y="224" width="800" height="40" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="60"  y="244" font-size="12" fill="#222" font-weight="600">B=8 sustained, 4 threads pinned</text>
+  <text x="285" y="244" font-size="10" fill="#15803d" font-weight="600">[RECOMMENDED]</text>
+  <text x="60"  y="258" font-size="9"  fill="#15803d">24/7 multi-camera production -- best sustained throughput</text>
+  <text x="420" y="249" text-anchor="middle" font-size="13" fill="#16a34a" font-weight="600">17.49 ms/face</text>
+  <text x="590" y="249" text-anchor="middle" font-size="13" fill="#16a34a" font-weight="700">57 face/s infinite</text>
+  <text x="760" y="249" text-anchor="middle" font-size="13" fill="#a16207">190 MB</text>
+
+  <!-- Row 5: ORT reference -->
+  <rect x="40"  y="268" width="800" height="40" fill="#fef2f2" stroke="#fecaca"/>
+  <text x="60"  y="288" font-size="12" fill="#222" font-weight="500">ORT + InsightFace FP32 (reference)</text>
+  <text x="60"  y="302" font-size="9"  fill="#6c757d">baseline -- Python + ONNX Runtime + 244 MB deps</text>
+  <text x="420" y="293" text-anchor="middle" font-size="13" fill="#dc2626">31.46 ms</text>
+  <text x="590" y="293" text-anchor="middle" font-size="13" fill="#dc2626">32 face/s</text>
+  <text x="760" y="293" text-anchor="middle" font-size="13" fill="#dc2626">358 MB</text>
+
+  <!-- Legend -->
+  <text x="60"  y="336" font-size="11" fill="#555">color:</text>
+  <rect x="102" y="326" width="14" height="14" fill="#16a34a"/>
+  <text x="120" y="337" font-size="11" fill="#222">better</text>
+  <rect x="170" y="326" width="14" height="14" fill="#a16207"/>
+  <text x="188" y="337" font-size="11" fill="#222">moderate</text>
+  <rect x="250" y="326" width="14" height="14" fill="#dc2626"/>
+  <text x="268" y="337" font-size="11" fill="#222">slower / baseline</text>
+  <rect x="400" y="326" width="14" height="14" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="418" y="337" font-size="11" fill="#222">recommended production config</text>
+</svg>

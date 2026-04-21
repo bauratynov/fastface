@@ -1,0 +1,15 @@
+S107 weight-fold rounding hypothesis test
+  expected baseline:  mean 0.99623 (v1.1.0 sim)
+  expected fold match: should drop toward 0.993 if fold-rounding is gap source
+
+1) load calib...
+2) load test (100 seed=7777)...
+3) ORT FP32 refs...
+4) collect per-image absmax...
+  processed 50/200
+  processed 100/200
+  processed 150/200
+  processed 200/200
+   done in 40.9s
+   [UNFOLDED weight quant (sim default)]  mean 0.99623  median 0.99663  min 0.98525  >=0.99 99/100  (37.7s)
+   [FOLDED weight quant (binary-match)]  mean 0.99208  median 0.99232  min 0.98048  >=0.99 89/100  (55.4s)

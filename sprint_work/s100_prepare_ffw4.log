@@ -1,0 +1,12 @@
+Collecting per-image absmax on 200 faces (percentile=99.9)...
+  processed 50/200
+  processed 100/200
+  processed 150/200
+  processed 200/200
+  depth-aware: early-half percentile=99.0, late-half=99.9
+Flatten input tensor = '680', per-channel scale shape = (512,)
+S85: folding trailing BN (#129) into Gemm (#128): output tensors 682 -> 683
+  S85 folded trailing BN into Gemm (gamma range 9.738..10.852)
+  Gemm folded: N=512 K=25088 spatial=49  max(S_c)=0.0038  old_scale_max=0.000282  new_scale_max=0.000011
+
+Serialized to models/w600k_r50_ffw4.bin (41.7 MB, magic FFW4)

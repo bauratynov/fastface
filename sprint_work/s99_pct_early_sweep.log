@@ -1,0 +1,27 @@
+S99 PCT_EARLY sweep  N_CALIB=200 N_TEST=100  PCT_LATE=99.9  test_seeds=[7777, 11111]
+
+1) loading calib faces (200, WITH_PRINCESS)...
+2) loading test faces x 2...
+3) ORT FP32 ground truth for each test set...
+4) collect per-image absmax on calib set...
+  processed 50/200
+  processed 100/200
+  processed 150/200
+  processed 200/200
+   done in 42.4s (131 tensors)
+
+5) sweep PCT_EARLY (PCT_LATE=99.9):
+  PCT_EARLY | seed=7777: mean  min   >=99 | seed=11111: mean  min   >=99 |   mean-of-means
+  ----------------------------------------------------------------------------------------
+       98.0 |        0.99638 0.98648  99/100 |        0.99666 0.98954  99/100 |   0.99652
+       99.0 |        0.99638 0.98864  99/100 |        0.99666 0.99059 100/100 |   0.99652
+       99.5 |        0.99629 0.98753  99/100 |        0.99659 0.99115 100/100 |   0.99644
+       99.7 |        0.99629 0.98465  99/100 |        0.99650 0.99034 100/100 |   0.99639
+       99.9 |        0.99623 0.98525  99/100 |        0.99654 0.99033 100/100 |   0.99638
+
+Ranking (by mean-of-means):
+  PCT_EARLY= 99.0  mom=0.99652  seed1 delta vs PCT_EARLY=99.9: +0.00015  seed2 delta: +0.00012
+  PCT_EARLY= 98.0  mom=0.99652  seed1 delta vs PCT_EARLY=99.9: +0.00015  seed2 delta: +0.00013
+  PCT_EARLY= 99.5  mom=0.99644  seed1 delta vs PCT_EARLY=99.9: +0.00006  seed2 delta: +0.00006
+  PCT_EARLY= 99.7  mom=0.99639  seed1 delta vs PCT_EARLY=99.9: +0.00006  seed2 delta: -0.00004
+  PCT_EARLY= 99.9  mom=0.99638  seed1 delta vs PCT_EARLY=99.9: +0.00000  seed2 delta: +0.00000

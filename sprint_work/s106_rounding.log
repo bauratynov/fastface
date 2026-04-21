@@ -1,0 +1,16 @@
+S106 rounding-match hypothesis test
+  baseline sim (banker): expected mean 0.99623
+  binary (HATZ):         expected mean 0.99326
+  gap:                   0.00297
+
+1) load calib (200 WITH_PRINCESS)...
+2) load test (100 seed=7777)...
+3) ORT FP32 refs...
+4) collect per-image absmax...
+  processed 50/200
+  processed 100/200
+  processed 150/200
+  processed 200/200
+   done in 40.9s
+   [banker (numpy default)]  mean 0.99623  median 0.99663  min 0.98525  >=0.99 99/100  (37.6s)
+   [HATZ (binary-match)]  mean 0.99622  median 0.99659  min 0.98526  >=0.99 99/100  (73.9s)

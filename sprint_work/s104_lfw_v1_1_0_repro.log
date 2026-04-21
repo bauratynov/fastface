@@ -1,0 +1,19 @@
+Building 10 folds x 600 pairs from data/lfw...
+  got 6000 pairs
+
+  fold  1: FP32=99.83%  INT8=99.83%
+  fold  2: FP32=99.50%  INT8=99.50%
+  fold  3: FP32=99.17%  INT8=99.17%
+  fold  4: FP32=99.50%  INT8=99.50%
+  fold  5: FP32=99.67%  INT8=99.67%
+  fold  6: FP32=99.67%  INT8=99.83%
+  fold  7: FP32=99.50%  INT8=99.50%
+  fold  8: FP32=100.00%  INT8=100.00%
+  fold  9: FP32=99.67%  INT8=99.67%
+  fold 10: FP32=99.83%  INT8=99.83%
+
+=== LFW 10-fold protocol (6000 pairs total) ===
+  ORT FP32:       99.633 +/- 0.221 %
+  FastFace INT8:  99.650 +/- 0.229 %
+  gap:            -0.017 pp
+  (published ArcFace FP32 LFW: ~99.82%)

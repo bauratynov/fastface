@@ -1,0 +1,26 @@
+Calibrating on 200 faces... (percentile=99.9)
+  processed 50/200
+  processed 100/200
+  processed 150/200
+  processed 200/200
+  collected per-image absmax in 40.0s (131 tensors)
+  depth-aware: early-half percentile=99.0, late-half=99.9
+n_ops derived: 177  (with scale: 129, markers: 48)
+Wrote per-channel op scales (n_ops=177) to models/op_scales_v2.bin  size=224221 bytes
+
+First 15 ops:
+  op[0]: Cout=64  scale[0]=0.00000  max=0.00627  min>0=0.00000
+  op[1]: Cout=64  scale[0]=0.00000  max=0.00574  min>0=0.00000
+  op[2]: <marker>
+  op[3]: Cout=64  scale[0]=0.00062  max=0.01229  min>0=0.00000
+  op[4]: Cout=64  scale[0]=0.00447  max=0.01805  min>0=0.00000
+  op[5]: Cout=64  scale[0]=0.00360  max=0.01805  min>0=0.00000
+  op[6]: Cout=64  scale[0]=0.00309  max=0.01707  min>0=0.00000
+  op[7]: <marker>
+  op[8]: Cout=64  scale[0]=0.00024  max=0.00969  min>0=0.00000
+  op[9]: Cout=64  scale[0]=0.00320  max=0.01798  min>0=0.00063
+  op[10]: <marker>
+  op[11]: <marker>
+  op[12]: Cout=64  scale[0]=0.00395  max=0.00852  min>0=0.00000
+  op[13]: Cout=64  scale[0]=0.00000  max=0.01165  min>0=0.00000
+  op[14]: Cout=64  scale[0]=0.00000  max=0.00696  min>0=0.00000

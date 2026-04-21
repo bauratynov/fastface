@@ -1,0 +1,17 @@
+1) load calib (200 WITH_PRINCESS)...
+2) load test (100 seed=7777)...
+3) ORT FP32 refs...
+4) Python per-channel sim on test...
+  processed 50/200
+  processed 100/200
+  processed 150/200
+  processed 200/200
+   calib done in 41.7s
+   [Python sim]  mean 0.99623  median 0.99663  min 0.98525  >=0.99 99/100
+
+5) C binary (v1.1.0 restored) on same faces...
+   [C binary ]  mean 0.99326  median 0.99360  min 0.98338  >=0.99 92/100
+
+6) sim vs binary delta per face:
+   mean delta -0.00296  std 0.00175  min delta -0.00976  max delta +0.00096
+   |delta| median 0.00284  |delta| p95 0.00615

@@ -1,0 +1,24 @@
+S101 weight percentile sweep  N_CALIB=200 N_TEST=100
+  activation: p=99.9 WITH_PRINCESS, weight pct grid: [100.0, 99.99, 99.9]
+
+1) loading calib faces (200, WITH_PRINCESS)...
+2) loading test faces x 2...
+3) ORT FP32 ground truth...
+4) collect per-image absmax (activations)...
+  processed 50/200
+  processed 100/200
+  processed 150/200
+  processed 200/200
+   done in 42.3s
+
+5) weight-pct sweep:
+    w_pct |            seed 7777 mean min >=99 |           seed 11111 mean min >=99 | mom
+  ------------------------------------------------------------------------------------
+   100.00 |  0.99623 0.98525  99/100  (37.5s) |  0.99654 0.99033 100/100  (37.7s) |  0.99638
+    99.99 |  0.99602 0.98675  99/100  (72.2s) |  0.99623 0.98948  99/100  (72.1s) |  0.99613
+    99.90 |  0.95982 0.91317   0/100  (72.1s) |  0.95917 0.86980   0/100  (72.0s) |  0.95949
+
+Ranking (by mean-of-means):
+  weight_pct=100.00  mom=0.99638  delta vs absmax: +0.00000
+  weight_pct= 99.99  mom=0.99613  delta vs absmax: -0.00026
+  weight_pct= 99.90  mom=0.95949  delta vs absmax: -0.03689

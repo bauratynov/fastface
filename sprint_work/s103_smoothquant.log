@@ -1,0 +1,23 @@
+S103 SmoothQuant alpha sweep  N_CALIB=200 N_TEST=100
+
+1) calib (200 WITH_PRINCESS)...
+2) test (100 seed=7777)...
+3) ORT refs...
+4) activation per-image absmax (for scales)...
+  processed 50/200
+  processed 100/200
+  processed 150/200
+  processed 200/200
+   done in 41.3s
+5) per-input-channel absmax on calib set...
+  collected per-ic absmax 50/200
+  collected per-ic absmax 100/200
+  collected per-ic absmax 150/200
+  collected per-ic absmax 200/200
+   done in 40.0s  (53/54 tensors with stats)
+
+6) alpha sweep (baseline alpha=0 = no smoothing):
+   alpha=0.00  mean 0.99623  median 0.99663  min 0.98525  >=0.99 99/100  (38.0s)  [0 Convs smoothed]
+   alpha=0.25  mean 0.07878  median 0.07331  min -0.05536  >=0.99 0/100  (38.4s)  [49 Convs smoothed]
+   alpha=0.50  mean 0.97722  median 0.98002  min 0.90931  >=0.99 2/100  (38.3s)  [49 Convs smoothed]
+   alpha=0.75  mean 0.99375  median 0.99448  min 0.97342  >=0.99 93/100  (40.0s)  [49 Convs smoothed]

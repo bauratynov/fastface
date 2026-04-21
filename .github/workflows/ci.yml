@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+
+jobs:
+  regression:
+    # Needs a runner with AVX-VNNI (Alder Lake+ / Zen 4+). GitHub-hosted
+    # ubuntu-24.04 runners currently use Intel Xeon Platinum 8171M (no
+    # AVX-VNNI) so tests will still run but speed numbers won't match
+    # the local i7-13700 numbers in the README. Accuracy (cos-sim bit-
+    # exact vs golden) does NOT depend on AVX-VNNI presence.
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-13 make python3 python3-pip
+          sudo apt-get install -y python3-numpy python3-pil
+          pip3 install --break-system-packages onnxruntime --user || true
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Build
+        run: make CC=gcc-13 AR=ar all
+
+      - name: Regression test
+        run: make PYTHON=python3 test
+
+      - name: Go test
+        working-directory: go/fastface
+        run: go test -v ./...
+
+      - name: C lib consumer test
+        run: |
+          gcc -O2 -fopenmp -I. test_libfastface.c libfastface.a -o test_libfastface
+          ./test_libfastface
+
+      - name: Peak bench (single-shot sanity)
+        # Makefile produces ./fastface_int8 on Linux (no .exe suffix).
+        run: ./fastface_int8 models/w600k_r50_ffw4.bin | head -20
+
+  lfw-accuracy:
+    # Optional, only runs on release tags. Needs LFW dataset which isn't
+    # checked in — skip with a clear message otherwise.
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: LFW dataset check
+        run: |
+          if [ ! -d data/lfw ]; then
+            echo "SKIP: data/lfw not present in repo (dataset not distributed here)"
+            exit 0
+          fi
+      - name: Build
+        run: |
+          sudo apt-get install -y gcc-13 make python3 python3-pip
+          pip3 install --break-system-packages onnxruntime numpy pillow --user
+          make CC=gcc-13 AR=ar
+      - name: LFW 10-fold bench
+        run: python3 bench_lfw_full.py

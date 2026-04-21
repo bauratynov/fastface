@@ -1,0 +1,46 @@
+# Build artifacts
+*.exe
+*.o
+*.obj
+*.a
+*.lib
+*.dll
+*.exp
+*.pdb
+
+# Per-sprint bench artifacts
+models/tmp_*.bin
+models/_lfw_*.bin
+models/validate_input.bin
+models/validate_output.bin
+models/validate_output_int8.bin
+models/batch_input.bin
+models/batch_output.bin
+models/int8_input.bin
+models/int8_output.bin
+
+# Caches
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# PGO
+pgo_data/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Sprint-specific backup copies of calibration artefacts
+models/*.v1_0_0
+models/*.v1_1_0
+
+# Regression-test intermediate
+tests/_current_out.bin
+
+# Shell stderr captures
+stderr.txt
+
+# Generated plot text fallbacks (SVGs are committed)
+docs/*.txt

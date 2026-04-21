@@ -1,0 +1,17 @@
+S98 depth-aware percentile quick test
+  N_CALIB=200 N_TEST=100 PCT_LATE=99.9 PCT_EARLY=99.0
+  calib: WITH_PRINCESS mode
+
+1) loading calib faces (200)...
+2) loading test faces (100)...
+3) ORT FP32 ground truth...
+4) collect per-image absmax on calib set...
+  processed 50/200
+  processed 100/200
+  processed 150/200
+  processed 200/200
+   done in 42.2s (131 tensors)
+
+5) evaluate scale configs on 100 test faces:
+  [uniform p=99.9]  mean 0.99623  median 0.99663  min 0.98525  >=0.99 99/100  (>=0.98 100/100)  (39.7s)
+  [depth-aware early=99.0 late=99.9]  mean 0.99638  median 0.99680  min 0.98864  >=0.99 99/100  (>=0.98 100/100)  (40.4s)

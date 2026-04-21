@@ -1,0 +1,40 @@
+1) load calib...
+2) per-image absmax...
+  processed 50/200
+  processed 100/200
+  processed 150/200
+  processed 200/200
+D:\apps\fastface-rust\quick_s108_sa_variance_profile.py:50: RuntimeWarning: overflow encountered in scalar divide
+  max_min = float(s_nonzero.max() / s_nonzero.min())
+
+3) per-Conv S_a[ci] variance profile:
+
+  rank   op    #ci    max/min      cv  max/med  input_name
+  ---- ---- ------ ---------- ------- --------  ----------
+     1 Conv     64        inf   1.173 984205.69  494
+     2 Conv     64 561912788827848732163013923322200064.00   1.863 887841.44  479
+     3 Gemm  25088 1267559459735701638061490176.00   0.441     3.25  681
+     4 Conv    256 244462155422902565071749120.00   0.511     4.65  558
+     5 Conv    256 21460840598261286947520512.00   0.578     6.04  590
+     6 Conv    256 142889686559654322110464.00   0.429     4.42  622
+     7 Conv     64 839976921812497858560.00   0.607     3.64  498
+     8 Conv    256 84659509120729088.00   0.445     4.36  566
+     9 Conv     64 7414633.50   0.672     3.08  490
+    10 Conv     64 2297001.75   1.141     8.21  484
+    11 Conv    128 1851796.75   0.719     9.33  540
+    12 Conv    256 1611748.12   0.442     4.28  598
+    13 Conv     64 1335437.88   0.464     2.67  502
+    14 Conv    128 1285695.88   0.450     3.10  536
+    15 Conv    512 1005190.94   0.517     4.00  668
+    16 Conv    512  882658.25   0.262     2.96  658
+    17 Conv    256  837081.25   0.383     2.79  578
+    18 Conv    256  772251.88   0.332     2.61  586
+    19 Conv    256  748175.44   0.335     2.63  618
+    20 Conv    256  717552.81   0.348     2.52  562
+
+  total Conv/Gemm with S_a data: 54
+  S_a max/min distribution:  median 545571.19  p75 1215569.64  p95 602546211932376426950426624.00  p99 inf
+
+  # layers with max/min > 10: 43/54
+  # layers with max/min > 100: 39/54
+  >>> DFQ has clear leverage, worth implementing.

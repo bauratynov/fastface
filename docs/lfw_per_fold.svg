@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="360" viewBox="0 0 720 360" font-family="system-ui, -apple-system, sans-serif">
+  <title>LFW 10-fold: FastFace INT8 vs ORT FP32</title>
+
+  <rect width="720" height="360" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="360" y="26" text-anchor="middle" font-size="15" font-weight="600" fill="#222">
+    LFW 10-fold verification: FastFace INT8 99.650% vs ORT FP32 99.633%
+  </text>
+  <text x="360" y="42" text-anchor="middle" font-size="11" fill="#555">
+    6000 pairs, best-threshold-per-fold, seed=42, Intel i7-13700 (AVX-VNNI)
+  </text>
+
+  <!-- Y axis -->
+  <line x1="70" y1="60" x2="70" y2="300" stroke="#999" stroke-width="1"/>
+  <text x="62" y="63" text-anchor="end" font-size="10" fill="#555">100.0</text>
+  <text x="62" y="110" text-anchor="end" font-size="10" fill="#555">99.75</text>
+  <text x="62" y="157" text-anchor="end" font-size="10" fill="#555">99.50</text>
+  <text x="62" y="204" text-anchor="end" font-size="10" fill="#555">99.25</text>
+  <text x="62" y="251" text-anchor="end" font-size="10" fill="#555">99.00</text>
+  <text x="62" y="298" text-anchor="end" font-size="10" fill="#555">98.75</text>
+
+  <!-- Grid lines -->
+  <line x1="70"  y1="108" x2="700" y2="108" stroke="#eee" stroke-width="1"/>
+  <line x1="70"  y1="155" x2="700" y2="155" stroke="#eee" stroke-width="1"/>
+  <line x1="70"  y1="202" x2="700" y2="202" stroke="#eee" stroke-width="1"/>
+  <line x1="70"  y1="249" x2="700" y2="249" stroke="#eee" stroke-width="1"/>
+
+  <!-- Bars. Accuracy 98.75..100.0 mapped to y=298..60 (height=238, range=1.25) -->
+  <!-- fold 1: FP32=99.83, INT8=99.83 -->
+  <rect x="88"  y="84"  width="22" height="214" fill="#6c757d"/>
+  <rect x="112" y="84"  width="22" height="214" fill="#28a745"/>
+  <text x="112" y="318" text-anchor="middle" font-size="10" fill="#555">1</text>
+
+  <!-- fold 2: FP32=99.50, INT8=99.50 -->
+  <rect x="148" y="147" width="22" height="151" fill="#6c757d"/>
+  <rect x="172" y="147" width="22" height="151" fill="#28a745"/>
+  <text x="172" y="318" text-anchor="middle" font-size="10" fill="#555">2</text>
+
+  <!-- fold 3: FP32=99.17, INT8=99.17 -->
+  <rect x="208" y="209" width="22" height="89" fill="#6c757d"/>
+  <rect x="232" y="209" width="22" height="89" fill="#28a745"/>
+  <text x="232" y="318" text-anchor="middle" font-size="10" fill="#555">3</text>
+
+  <!-- fold 4: FP32=99.50, INT8=99.50 -->
+  <rect x="268" y="147" width="22" height="151" fill="#6c757d"/>
+  <rect x="292" y="147" width="22" height="151" fill="#28a745"/>
+  <text x="292" y="318" text-anchor="middle" font-size="10" fill="#555">4</text>
+
+  <!-- fold 5: FP32=99.67, INT8=99.67 -->
+  <rect x="328" y="115" width="22" height="183" fill="#6c757d"/>
+  <rect x="352" y="115" width="22" height="183" fill="#28a745"/>
+  <text x="352" y="318" text-anchor="middle" font-size="10" fill="#555">5</text>
+
+  <!-- fold 6: FP32=99.67, INT8=99.83 (INT8 higher) -->
+  <rect x="388" y="115" width="22" height="183" fill="#6c757d"/>
+  <rect x="412" y="84"  width="22" height="214" fill="#28a745"/>
+  <text x="412" y="318" text-anchor="middle" font-size="10" fill="#555">6</text>
+
+  <!-- fold 7: 99.50 / 99.50 -->
+  <rect x="448" y="147" width="22" height="151" fill="#6c757d"/>
+  <rect x="472" y="147" width="22" height="151" fill="#28a745"/>
+  <text x="472" y="318" text-anchor="middle" font-size="10" fill="#555">7</text>
+
+  <!-- fold 8: 100.00 / 100.00 -->
+  <rect x="508" y="62"  width="22" height="236" fill="#6c757d"/>
+  <rect x="532" y="62"  width="22" height="236" fill="#28a745"/>
+  <text x="532" y="318" text-anchor="middle" font-size="10" fill="#555">8</text>
+
+  <!-- fold 9: 99.67 / 99.67 -->
+  <rect x="568" y="115" width="22" height="183" fill="#6c757d"/>
+  <rect x="592" y="115" width="22" height="183" fill="#28a745"/>
+  <text x="592" y="318" text-anchor="middle" font-size="10" fill="#555">9</text>
+
+  <!-- fold 10: 99.83 / 99.83 -->
+  <rect x="628" y="84"  width="22" height="214" fill="#6c757d"/>
+  <rect x="652" y="84"  width="22" height="214" fill="#28a745"/>
+  <text x="652" y="318" text-anchor="middle" font-size="10" fill="#555">10</text>
+
+  <!-- X axis label -->
+  <text x="360" y="340" text-anchor="middle" font-size="11" fill="#555">fold index</text>
+
+  <!-- Legend -->
+  <rect x="450" y="340" width="12" height="12" fill="#6c757d"/>
+  <text x="466" y="351" font-size="11" fill="#222">ORT FP32</text>
+  <rect x="540" y="340" width="12" height="12" fill="#28a745"/>
+  <text x="556" y="351" font-size="11" fill="#222">FastFace INT8</text>
+</svg>
