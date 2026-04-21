@@ -24,7 +24,13 @@ endif
 # ---- Toolchain -----------------------------------------------------------
 CC          := gcc
 AR          := ar
-CFLAGS       = -O3 -march=native -mavx2 -mfma -mavxvnni -fopenmp $(CFLAGS_EXTRA)
+# CFLAGS_ARCH is overridable for CI / cross-compile:
+#   local bare-metal build:  leave default (-march=native + VNNI)
+#   CI on a non-VNNI runner: override to "-march=x86-64-v3 -mavxvnni"
+#     (compiles but binary will SIGILL at runtime on non-VNNI CPUs)
+#   ARM NEON port (future):  override with "-march=armv8.2-a+dotprod" etc.
+CFLAGS_ARCH ?= -march=native -mavx2 -mfma -mavxvnni
+CFLAGS       = -O3 $(CFLAGS_ARCH) -fopenmp $(CFLAGS_EXTRA)
 DEFS         = -DFFW2_NOMAIN
 PYTHON      ?= python
 
