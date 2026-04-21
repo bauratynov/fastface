@@ -39,9 +39,12 @@ jobs:
           gcc-13 --version | head -1 | xargs -I{} echo "::notice::GCC: {}"
           set -o pipefail
           if ! make CC=gcc-13 AR=ar CFLAGS_ARCH="-march=x86-64-v3 -mavxvnni" all > /tmp/build.log 2>&1; then
-            # Surface first 60 lines of output as annotations so they're visible in jobs API.
-            head -60 /tmp/build.log | while IFS= read -r line; do
-              # Escape % for GH annotation syntax.
+            echo "::error::Build failed. Error-relevant lines:"
+            grep -E "error:|undeclared|unknown type|fatal|undefined reference|No such file|Error " /tmp/build.log | tail -40 | while IFS= read -r line; do
+              echo "::error::$(printf '%s' "$line" | tr -d '\r' | cut -c1-400)"
+            done
+            echo "::error::--- last 20 lines of full build log ---"
+            tail -20 /tmp/build.log | while IFS= read -r line; do
               echo "::error::$(printf '%s' "$line" | tr -d '\r' | cut -c1-400)"
             done
             exit 1
